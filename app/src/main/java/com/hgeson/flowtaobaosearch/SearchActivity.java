@@ -29,6 +29,7 @@ import java.util.List;
 public class SearchActivity extends Activity implements View.OnClickListener {
     private EditText editSearch;
     private TextView tvSearch;
+    private TextView noSearch;
     private ImageView tvClear;
     private FlowView flowView;
     private List<String> data = new ArrayList<>();
@@ -44,6 +45,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
 
         flowView = (FlowView) findViewById(R.id.flow_view);
         tvSearch = (TextView) findViewById(R.id.tv_search);
+        noSearch = (TextView) findViewById(R.id.no_search);
         tvClear = (ImageView) findViewById(R.id.clear_search);
         editSearch = (EditText) findViewById(R.id.edit_search);
         mInflater = LayoutInflater.from(this);
@@ -51,7 +53,11 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         tvClear.setOnClickListener(this);
 
         data = StorageUtil.get(this);
-        setFlow();
+        if (data.size() == 0){
+            noSearch.setVisibility(View.VISIBLE);
+        }else {
+            setFlow();
+        }
     }
 
     @Override
@@ -71,6 +77,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
             flowView.removeAllViews();
             setFlow();
         }else{
+            noSearch.setVisibility(View.VISIBLE);
             editSearch.setHint("iphone xs");
             flowView.removeAllViews();
             data.clear();
@@ -79,6 +86,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
     }
 
     public void setFlow(){
+        noSearch.setVisibility(View.GONE);
         for (int i = 0; i < data.size(); i++) {
             final TextView textView = (TextView) mInflater.inflate(R.layout.item_tv, flowView, false);
             textView.setText(data.get(i));
@@ -89,6 +97,9 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                     for (int j = 0; j < data.size(); j++) {
                         if (data.get(j).equals(textView.getText().toString())) {
                             data.remove(j);
+                            if (data.size() == 0){
+                                noSearch.setVisibility(View.VISIBLE);
+                            }
                             flowView.removeView(v);
                             StorageUtil.remove(SearchActivity.this,String.valueOf(j),false);
                             break;

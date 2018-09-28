@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/ll"
         android:background="@color/colorSearch"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -41,6 +42,8 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_below="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -63,6 +66,8 @@
     </RelativeLayout>
 
     <View
+        android:id="@+id/view"
+        android:layout_below="@+id/rl"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="#d7d7d7"
@@ -70,9 +75,23 @@
         android:layout_height="1px"/>
 
     <com.hgeson.flowtaobaosearch.view.FlowView
+        android:layout_below="@+id/view"
         android:id="@+id/flow_view"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/no_search"
+        android:textColor="#909090"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text="暂无记录~"
+        android:layout_below="@+id/view"
+        android:background="#fff"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</RelativeLayout>
