@@ -36,7 +36,7 @@ public class StorageUtil {
             edit.putString(i + "",data.get(i));
         }
         edit.putInt("datasize",data.size());
-        edit.commit();
+        edit.apply();
     }
 
     public static void remove(Context context,String key,boolean isClear){
