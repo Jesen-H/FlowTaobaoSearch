@@ -6,11 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hgeson.flowtaobaosearch.utils.StorageUtil;
 import com.hgeson.flowtaobaosearch.view.FlowView;
@@ -96,6 +98,21 @@ public class SearchActivity extends Activity implements View.OnClickListener {
             });
             flowView.addView(textView);
         }
+    }
+
+    private long firstime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (System.currentTimeMillis() - firstime > 2000) {
+                firstime = System.currentTimeMillis();
+                Toast.makeText(this, "再点击一次退出程序~", Toast.LENGTH_SHORT).show();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
